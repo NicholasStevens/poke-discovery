@@ -5,12 +5,12 @@ import { useParams } from "react-router-dom";
 
 export default function PokemonDetailPage() {
   const [specificPoke, setSpecificPoke] = useState(null);
-  const params = useParams();
+  const routeParams = useParams();
 
   useEffect(() => {
     async function fetchPoke() {
       const response = await axios.get(
-        `https://pokeapi.co/api/v2/pokemon/${params.pokemon_name}`
+        `https://pokeapi.co/api/v2/pokemon/${routeParams.pokemon_name}`
       );
       setSpecificPoke(response.data);
     }
@@ -24,7 +24,7 @@ export default function PokemonDetailPage() {
       <p>
         Types:{" "}
         {specificPoke.types.map((typeObj) => (
-          <span>{typeObj.type.name}</span>
+          <span>{typeObj.type.name} </span>
         ))}
       </p>
       <p>Weight: {specificPoke.weight} hectograms</p>

@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import PokemonCard from "../components/PokemonCard";
 
 export default function PokemonDiscoveryPage() {
-  const [pokeList, setPokeList] = useState([]);
+  const [pokeList, setPokeList] = useState(null);
   const [filter, setFilter] = useState("");
+  const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function getPoke() {
@@ -14,10 +17,14 @@ export default function PokemonDiscoveryPage() {
       setPokeList(response.data.results);
     }
     getPoke();
+    if (params.filter) {
+      setFilter(params.filter);
+    }
   }, []);
 
   const updateFilter = (e) => {
     setFilter(e.target.value);
+    navigate(`/${e.target.value}`);
   };
 
   return (
